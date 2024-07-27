@@ -1,0 +1,55 @@
+{
+  "name": "smp_ms_rfqs",
+  "version": "0.1.8",
+  "description": "Microservices - RFQs",
+  "author": [
+    "Sunil Parte <sunil.parte@mindsclik.com>",
+    "Nilan Das<nilan.das@mindsclik.com>"
+  ],
+  "main": "app.js",
+  "scripts": {
+    "start": "NODE_ENV=dev node app.js",
+    "start-staging": "NODE_ENV=staging node app.js",
+    "start-prod": "NODE_ENV=production node app.js",
+    "package": "npm install && pkg package.json -t node12-linux-x64 && tar zcvf `echo ${npm_package_path}${npm_package_name}.${npm_package_version}.tgz` `echo ${npm_package_name} ` && rm `echo ${npm_package_name} ` "
+  },
+  "keywords": [],
+  "license": "Mindsclik CopyRight: bundled as solution",
+  "dependencies": {
+    "@azure/storage-blob": "^12.15.0",
+    "axios": "^0.21.4",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "date-fns": "^3.0.6",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.10",
+    "exceljs": "^4.4.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.4.0",
+    "express-jwt": "^6.0.0",
+    "express-validator": "^6.8.0",
+    "html-to-text": "^9.0.5",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.7.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.45",
+    "mongoose": "^5.11.7",
+    "mongoose-sequence": "^5.3.1",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.2",
+    "nodemon": "^2.0.6",
+    "puppeteer": "^22.11.2",
+    "razorpay": "^2.8.1",
+    "uuid": "^8.3.2"
+  },
+  "bin": {
+    "mycli": "./app.js"
+  },
+  "pkg": {
+    "assets": [
+      "./src/configs/*",
+      "./.env"
+    ]
+  }
+}

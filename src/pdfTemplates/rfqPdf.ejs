@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RFQ PDF</title>
+    <style>
+        @font-face {
+            font-family: 'Goldman Sans';
+            src: url('../fonts/GoldmanSans_Lt.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Goldman Sans', Arial, sans-serif;
+            font-size: 13px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-font {
+            font-family: 'Goldman Sans', Arial, sans-serif;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #e7e7e7;
+            border-collapse: collapse;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .rfq-header{
+            padding: 10px;
+        }
+
+        .general-info,
+        .rfq-awarded,
+        .rfq-details,
+        .invited-vendors {
+            border: 1px solid #999999;
+            padding: 10px;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .rfq-header {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rfq-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .rfq-header-top h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .rfq-header-top p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .rfq-header-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 400px;
+        }
+
+        .rfq-header-center h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .create-date-label {
+            /* color: #666; */
+            font-size: 16px;
+        }
+
+        .create-date-value {
+            font-weight: bold;
+            margin-left: 5px;
+            font-size: 16px;
+            color: #000; /* Change the color as desired */
+        }
+
+        .general-info,
+        .rfq-awarded,
+        .rfq-details,
+        .invited-vendors {
+            padding: 10px;
+        }
+
+        .general-info h2,
+        .rfq-awarded h2,
+        .rfq-details h2,
+        .invited-vendors h2 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .general-info-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .general-info .info-item {
+            width: 30%;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* .general-info .info-label {
+            font-weight: bold;
+        } */
+
+        .general-info .info-value {
+            margin-top: 5px;
+        }
+
+        .awarded-table th,
+        .awarded-table td,
+        .invited-table th,
+        .invited-table td {
+            /* border: 1px solid #E7E7E7; */
+            padding: 5px;
+            text-align: left;
+            /* border-collapse: collapse; */
+        }
+
+        /* .awarded-table th,
+        .invited-table th {
+            background-color: #f0f0f0;
+        } */
+
+        /* .awarded-table th {
+            width: 12.5%;
+        } */
+
+        @page {
+            margin: 30px 20px;
+        }
+
+        .container {
+            position: relative;
+            page-break-inside: avoid;
+        }
+
+        .top-info {
+            width: 100%;
+            border: 1px solid #999999;
+            margin-bottom: 10px;
+            display: flex;
+            /* flex-wrap: wrap; */
+            justify-content: space-around;
+            padding: 10px;
+            box-sizing: border-box
+        }
+
+        .info-item {
+            flex: 1 1 33%;
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .info-label {
+            margin-right: 5px;
+        }
+        
+        .info-value {
+            font-weight: bold;
+            /* margin-left: 5px; */
+        }
+        .info-value-header {
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .description{
+            color:#999999
+        }
+    </style>
+
+    <script>
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate();
+            const month = date.toLocaleString('default', { month: 'short' });
+            const year = date.getFullYear().toString().slice(-2);
+            return `${day} ${month} ${year}`;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="rfq-header">
+            <div class="rfq-header-top">
+                <h1>RFQ (<%= rfqId %>)</h1>
+                <div class="rfq-header-center">
+                    <h2><%= name %></h2>
+                </div>
+                <p>
+                    <span class="create-date-label">Create Date </span> 
+                    <span class="create-date-value"><script>document.write(formatDate('<%= createDate %>'))</script></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="top-info">
+            <div class="info-item">
+                <span class="info-label">Indent Number</span>
+                <span class="info-value-header">
+                    <%= indentId %>
+                </span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="info-value-header">
+                    <%= status %>
+                </span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Created By</span>
+                <span class="info-value-header">
+                    <%= requesterName %>
+                </span>
+            </div>
+        </div>
+
+        <div class="general-info">
+            <h2>General Information</h2>
+            <div class="general-info-content">
+                <div class="info-item">
+                    <span class="info-label">Project Name</span>
+                    <span class="info-value">
+                        <%= projectName %>
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Project Location</span>
+                    <span class="info-value">
+                        <%= location %>
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Project Material</span>
+                    <span class="info-value">
+
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Requirement Type</span>
+                    <span class="info-value">
+                        <%= rfqType %>
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Credit Period</span>
+                    <span class="info-value">
+                        <%= creditPeriod %>
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Due Date</span>
+                    <span class="info-value">
+                        <%= validityDate %>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="rfq-awarded">
+            <h2>RFQ Awardee/s</h2>
+            <table class="awarded-table">
+                <tr>
+                    <th style="width: 4%;">Quote Lvl</th>
+                    <th style="width: 30%;">Vendor Name</th>
+                    <th style="width: 5%;">Phone</th>
+                    <th style="width: 12%;">PO Id</th>
+                    <th style="width: 12%;">PO Date</th>
+                    <th style="width: 12%;">PO Amt</th>
+                    <th style="width: 25%;">Remarks</th>
+                </tr>
+                <% suppliers.filter(s => s.isAwarded).forEach(supplier => { %>
+                    <% const closingDetails = supplier.closingDetails; %>
+                    <% closingDetails.forEach((detail, index) => { %>
+                        <tr>
+                            <% if (index === 0) { %>
+                                <td rowspan="<%= closingDetails.length %>">
+                                    <%= supplier.quotationDetails.rank %>
+                                </td>
+                                <td rowspan="<%= closingDetails.length %>">
+                                    <%= supplier.businessName %>
+                                </td>
+                                <td rowspan="<%= closingDetails.length %>">
+                                    <%= supplier.contactDetails[0].mobile %>
+                                </td>
+                            <% } %>
+                            <td>
+                                <%= detail.poNumber %>
+                            </td>
+                            <td>
+                                <script>document.write(formatDate('<%= detail.poDate %>'));</script>
+                            </td>
+                            <td>
+                                <%= detail.amount %>
+                            </td>
+                            <td>
+                                <%= detail.remark %>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% }) %>
+            </table>
+        </div>
+        
+
+        <div class="rfq-details">
+            <h2>RFQ Details</h2>
+            <p class="description">
+                <%= description %>
+            </p>
+        </div>
+
+        <div class="invited-vendors">
+            <h2>Invited Vendors</h2>
+            <table class="invited-table">
+                <tr>
+                    <th style="width: 33%;">Vendor Name</th>
+                    <th style="width: 14%;">Reinvite Count</th>
+                    <th style="width: 10%;">Recipient/s</th>
+                    <th style="width: 10%;">Quote Lvl</th>
+                    <th style="width: 10%;">Amount</th>
+                    <th style="width: 23%;">Remarks</th>
+                </tr>
+                <% suppliers.forEach(supplier=> { %>
+                    <tr>
+                        <td>
+                            <%= supplier.businessName %>
+                        </td>
+                        <td>
+                            <%= supplier.resendCount %>
+                        </td>
+                        <td>
+                            <%= supplier.contactDetails[0].name %>
+                        </td>
+                        <td>
+                            <%= supplier.quotationDetails.rank %>
+                        </td>
+                        <td>
+                            <%= supplier.quotationDetails.amount %>
+                        </td>
+                        <td>
+                            <%= supplier.quotationDetails.reason %>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
